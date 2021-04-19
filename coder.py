@@ -1,4 +1,19 @@
 from tkinter import *
+original = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"]
+code =["×","Ø","Þ","Ԡ","Ӝ","Հ","Ԕ","Ԫ","ݚ","ᴂ","ݿ","ᴂ","⁜","₮","₡","₯","₱","₪","₻","₧","‰","₷","₫","₰","ℳ","►","ꝑ","Ꝣ","ꝟ","ꭗ","ﮰ","₳","₨"]
+def show_all():
+    table = Toplevel()
+    table.geometry('330x330+400+300')
+    table['bg'] = 'grey'
+    text = Text(table ,width=39, height=21)
+    text.place_forget()
+    text.place(x=14, y=0)
+    textInput = ""
+    text.delete(1.0,"end")
+    #for 
+    scroll = Scrollbar(table, command=text.yview)
+    scroll.pack(side=LEFT, fill=Y)
+    text.config(yscrollcommand=scroll.set)
 root = Tk()
 root.geometry('400x220+200+100')
 root.title("coder")
@@ -8,7 +23,7 @@ l1.config(font=("Verdana", 15, 'bold'))
 e1 = Entry(width=22)
 e1.config(font=("Calibri", 13))
 b1 = Button(text="encrypt", padx = 60)
-b2 = Button(text="code table", padx = 48)
+b2 = Button(text="code table", padx = 48,command = show_all)
 b1.config(font=("Verdana", 12, 'bold'))
 b2.config(font=("Verdana", 12, 'bold'))
 l2= Label(text="Encrypted code")
