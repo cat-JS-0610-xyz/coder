@@ -59,9 +59,23 @@ def encrypting():
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code2[index]
                 kitten_made_encrypt = "ġ" + kitten_made_encrypt
+            if choice == "caesar":
+                kitten_made_encrypt = kitten_made_encrypt + "ϔ"
+                for kitten_is_making_encrypt in e1.get():   
+                    index = original.index(kitten_is_making_encrypt)
+                    if index != 58 and index != 32 and index != 77 and index != 78:
+                        kitten_made_encrypt = kitten_made_encrypt + original[index+1]
+                    elif index == 58:
+                        kitten_made_encrypt = kitten_made_encrypt + "a"
+                    elif index == 32:
+                        kitten_made_encrypt = kitten_made_encrypt + "а"
+                    elif index == 77:
+                        kitten_made_encrypt = kitten_made_encrypt + "1"
+                    elif ingex == 78:
+                        kitten_made_encrypt = kitten_made_encrypt + "\n"
             l3.configure(text = kitten_made_encrypt)
             encrypt_for_copy = kitten_made_encrypt
-        #Ā ġ
+        #Ā ġ ϔ
         elif crypt == 2:
             kitten_made_decrypt = ""
             kitten_made_encrypt = e1.get()
@@ -74,6 +88,20 @@ def encrypting():
                 for kitten_is_making_encrypt in kitten_made_encrypt[1:len(kitten_made_encrypt)]:
                     index = code2.index(kitten_is_making_encrypt)
                     kitten_made_decrypt = kitten_made_decrypt + original[index]
+                    
+            elif kitten_made_encrypt[0] == "ϔ":
+                for kitten_is_making_encrypt in kitten_made_encrypt[1:len(kitten_made_encrypt)]:
+                    index = original.index(kitten_is_making_encrypt)
+                    if index != 0 and index != 33 and index != 59 and index != 78:
+                        kitten_made_decrypt = kitten_made_decrypt + original[index-1]
+                    elif index == 0:
+                        kitten_made_decrypt = kitten_made_decrypt + "я"
+                    elif index == 33:
+                        kitten_made_decrypt = kitten_made_decrypt + "z"
+                    elif index == 59:
+                        kitten_made_decrypt = kitten_made_decrypt + " "
+                    elif ingex == 78:
+                        kitten_made_decrypt = kitten_made_decrypt + "\n"
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
 def copy():
@@ -109,9 +137,9 @@ def choice_3():
     global choice
     choice = 3
     
-def choice_4():
+def choice_caesar():
     global choice
-    choice = 4
+    choice = "caesar"
 def rus():
     global language
     language = 1
@@ -161,7 +189,7 @@ choicemenu.add_command(label="Cipher one", command = choice_1)
 choicemenu.add_command(label="Cipher two", command = choice_2)
 choicemenu.add_command(label="Cipher trhee", command = choice_3)
 choicemenu.add_separator()
-choicemenu.add_command(label="Caesar's cyper", command = choice_4)
+choicemenu.add_command(label="Caesar's cyper", command = choice_caesar)
 choicemenu.add_separator()
 choicemenu.add_command(label="Add cipher...")
 #language
@@ -203,3 +231,4 @@ l2.place(x=200,y=182,anchor=CENTER)
 l3.place(x=98,y=200)
 b3.place(x=200,y=250,anchor=CENTER)
 root.mainloop()
+
