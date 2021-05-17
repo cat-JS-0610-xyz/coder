@@ -38,6 +38,23 @@ def show_all():
         elif language == 1:
             textInput = textInput + "апостроф = Ŵ" + "\n"
             textInput = textInput + "пробел = Ѭ" + "\n"
+    elif choice == "caesar":
+        for step in range(0,len(code2)-4):
+            if step != 58 and step != 32:
+                textInput = textInput + original[step] + " = " + original[step+1] + "\n"
+            elif step == 58:
+                textInput = textInput + "z = a" + "\n"
+            elif step == 32:
+                textInput = textInput + "а = я" + "\n"
+        if language == 0:
+            textInput = textInput + ") = apostrophe" + "\n"
+            textInput = textInput + "apostrophe = space" + "\n"
+            textInput = textInput + "space = 1" + "\n"
+        if language == 1:
+            textInput = textInput + ") = апостроф" + "\n"
+            textInput = textInput + "апостроф = пробел" + "\n"
+            textInput = textInput + "пробел = 1" + "\n"
+    text.config(font=("Courier", 10, 'bold'))
     text.insert(1.0,textInput)
     scroll = Scrollbar(table, command=text.yview)
     scroll.pack(side=LEFT, fill=Y)
@@ -104,6 +121,8 @@ def encrypting():
                         kitten_made_decrypt = kitten_made_decrypt + "\n"
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
+def starting_encrypting(event):
+   encrypting()
 def copy():
     root.clipboard_clear()
     root.clipboard_append(encrypt_for_copy)
@@ -220,6 +239,8 @@ rb1 = Radiobutton(text="encrypting", variable=var, value=0, command = enn)
 rb2 = Radiobutton(text="decrypting", variable=var, value=1, command = dee)
 b3 = Button(text="copy to clipboard", padx = 75,command = copy)
 b3.config(font=("Verdana", 12, 'bold'))
+#event
+root.bind('<Enter>', starting_encrypting)
 #position
 l1.pack()
 e1.pack()
@@ -231,4 +252,3 @@ l2.place(x=200,y=182,anchor=CENTER)
 l3.place(x=98,y=200)
 b3.place(x=200,y=250,anchor=CENTER)
 root.mainloop()
-
