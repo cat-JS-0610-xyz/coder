@@ -4,6 +4,7 @@ crypt = 1
 choice = 1 
 kitten_made_encrypt = ""
 kitten_made_decrypt = ""
+reverse_list = []
 original = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",'1','2','3','4','5','6','7','8','9','0','!','?','"',',','.','(',')',"'",' ','\n']
 code =     ["×","Ø","Þ","Ԡ","Ӝ","Հ","Ԕ","Ԫ","ݚ","¶","ݿ","ᴂ","⁜","₮","₡","₯","₱","₪","₻","₧","‰","₷","₫","₰","ℳ","►","ꝑ","Ꝣ","ꝟ","ꭗ","ﮰ","₨","₳", "§", '¿', 'å','ɷ', 'ʥ','ʭ','ʧ','Ѯ', 'Ә', 'Ԭ','֍','♪','אַ','ﷺ','ﻼ','⑫','Ꝋ','Ꜯ','Ꞧ','☏','Ꝿ','ꭚ','ꭐ','ꝃ','ꞗ','Ꝇ','˧','ͳ','Ω','Σ','ϔ','Ͼ','⑤','҈','ӂ','փ','ﬄ','✄','↝','❉','❮','δ','ℬ','☯','Ѩ','\n']
 code2=["ͳ", "Ϡ", "Џ", "Ֆ", "ῡ", "ꝩ", "☭", "Ꜽ", "ӡ", "ҩ", "֍", "⅞", "ﻋ", "🔫", "¶", "Ǥ","ǂ","ʨ","ʬ","Ξ","՝","ԏ","ӹ","Ֆ","Ἔ","█","ﻺ","ﷻ","╫","շ","Ѡ","ᴥ","₽","€","﴾","⁴","―","∑","₿","‽","₰","Ꝁ","Ꝙ","∞","¼","Ɠ","«","E","¦","⚓","₽","צ","⭿","۞","ᶑ","ἶ","ⱷ","▒","♯","⤘","⛇","ሎ","≥","Ꞟ",'۩','Ä','ъ','ȸ','Ƿ','🄼','ÿ','✉','ǥ','Ỡ','ℳ','Ѿ','Ŵ','Ѭ','\n']
@@ -12,20 +13,25 @@ language = file.read(1)
 def choice_1():
     global choice
     choice = 1
-    
+    b2['state'] = 'active'
 def choice_2():
     global choice
     choice = 2
-    
+    b2['state'] = 'active'
 def choice_3():
     global choice
     choice = 3
-    
+    b2['state'] = 'active'
 def choice_caesar():
     global choice
     choice = "caesar"
+    b2['state'] = 'active'
+def reverse_choice():
+    global choice
+    choice = "reverse"
+    b2['state'] = 'disabled'
 def encrypting():
-    global e1, original, code,code2, encrypt_for_copy, crypt, language, choice, kitten_made_encrypt, kitten_list,kitten_made_decrypt
+    global e1, original, code,code2, encrypt_for_copy, crypt, language, choice, kitten_made_encrypt, kitten_list,kitten_made_decrypt,reverse_list
     kitten_made_encrypt = ""
     if len(e1.get()) != 0:
         if crypt == 1:
@@ -53,9 +59,18 @@ def encrypting():
                         kitten_made_encrypt = kitten_made_encrypt + "1"
                     elif ingex == 78:
                         kitten_made_encrypt = kitten_made_encrypt + "\n"
+            if choice == "reverse":
+                kitten_made_encrypt = e1.get()
+                for step in range(len(kitten_made_encrypt)):
+                    reverse_list.append(kitten_made_encrypt[step])
+                reverse_list.reverse()
+                reverse_list.append("ɚ")#܀ ண
+                kitten_made_encrypt = ""
+                for step in range(len(reverse_list)):
+                    kitten_made_encrypt = kitten_made_encrypt + reverse_list[step]
             l3.configure(text = kitten_made_encrypt)
             encrypt_for_copy = kitten_made_encrypt
-        #Ā ġ ϔ
+        #1:Ā 2:ġ Caesar:ϔ reverse:ɚ
         elif crypt == 2:
             kitten_made_decrypt = ""
             kitten_made_encrypt = e1.get()
@@ -82,10 +97,19 @@ def encrypting():
                         kitten_made_decrypt = kitten_made_decrypt + " "
                     elif ingex == 78:
                         kitten_made_decrypt = kitten_made_decrypt + "\n"
+            elif kitten_made_encrypt[len(kitten_made_encrypt)-1] == "ɚ":
+                kitten_made_encrypt = kitten_made_encrypt[0:len(kitten_made_encrypt)-1]
+                reverse_list = []
+                for step in range(len(kitten_made_encrypt)):
+                    reverse_list.append(kitten_made_encrypt[step])
+                reverse_list.reverse()
+                kitten_made_encrypt = ""
+                for step in range(len(reverse_list)):
+                    kitten_made_encrypt = kitten_made_encrypt + reverse_list[step]    
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
 def rus():
-    global language,file
+    global language,file, choicemenu
     file.close()
     file = open('language.txt', 'w')
     file.write("1")
@@ -110,9 +134,11 @@ def rus():
     choicemenu.entryconfigure(1, label='Шифр два')
     choicemenu.entryconfigure(2, label='Шифр три')
     choicemenu.entryconfigure(4, label='Шифр Цезаря')
-    choicemenu.entryconfigure(6, label='Добавить шифр...')
+    choicemenu.entryconfigure(5, label='Обратный текст')
+    choicemenu.entryconfigure(7, label='Добавить шифр...')
     helpmenu.entryconfigure(0, label='Справка')
     helpmenu.entryconfigure(1, label='Связь с разработчиком')
+    file.close()
 def eng():
     global language,file
     file.close()
@@ -139,9 +165,11 @@ def eng():
     choicemenu.entryconfigure(1, label='Cipher two')
     choicemenu.entryconfigure(2, label='Cipher trhee')
     choicemenu.entryconfigure(4, label="Caesar's cyper")
-    choicemenu.entryconfigure(6, label='Add cipher...')
+    choicemenu.entryconfigure(5, label='Reverse cyper')
+    choicemenu.entryconfigure(7, label='Add cipher...')
     helpmenu.entryconfigure(0, label='Reference')
     helpmenu.entryconfigure(1, label='Bond with orginator')
+    file.close()
 #root
 root = Tk()
 var = IntVar()
@@ -164,6 +192,7 @@ choicemenu.add_command(label="Cipher two", command = choice_2)
 choicemenu.add_command(label="Cipher trhee", command = choice_3)
 choicemenu.add_separator()
 choicemenu.add_command(label="Caesar's cyper", command = choice_caesar)
+choicemenu.add_command(label="Reverse cyper", command = reverse_choice)
 choicemenu.add_separator()
 choicemenu.add_command(label="Add cipher...")
 #language
