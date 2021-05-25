@@ -60,6 +60,7 @@ def encrypting():
                     elif ingex == 78:
                         kitten_made_encrypt = kitten_made_encrypt + "\n"
             if choice == "reverse":
+                reverse_list = []
                 kitten_made_encrypt = e1.get()
                 for step in range(len(kitten_made_encrypt)):
                     reverse_list.append(kitten_made_encrypt[step])
@@ -103,9 +104,9 @@ def encrypting():
                 for step in range(len(kitten_made_encrypt)):
                     reverse_list.append(kitten_made_encrypt[step])
                 reverse_list.reverse()
-                kitten_made_encrypt = ""
+                kitten_made_decrypt = ""
                 for step in range(len(reverse_list)):
-                    kitten_made_encrypt = kitten_made_encrypt + reverse_list[step]    
+                    kitten_made_decrypt = kitten_made_decrypt + reverse_list[step]    
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
 def rus():
@@ -318,3 +319,4 @@ elif language == "1":
     rus()
 root.mainloop()
 file.close()
+#поменять encrypting() на crypt_action() 
