@@ -8,6 +8,7 @@ reverse_list = []
 original = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",'1','2','3','4','5','6','7','8','9','0','!','?','"',',','.','(',')',"'",' ','\n']
 code =     ["×","Ø","Þ","Ԡ","Ӝ","Հ","Ԕ","Ԫ","ݚ","¶","ݿ","ᴂ","⁜","₮","₡","₯","₱","₪","₻","₧","‰","₷","₫","₰","ℳ","►","ꝑ","Ꝣ","ꝟ","ꭗ","ﮰ","₨","₳", "§", '¿', 'å','ɷ', 'ʥ','ʭ','ʧ','Ѯ', 'Ә', 'Ԭ','֍','♪','אַ','ﷺ','ﻼ','⑫','Ꝋ','Ꜯ','Ꞧ','☏','Ꝿ','ꭚ','ꭐ','ꝃ','ꞗ','Ꝇ','˧','ͳ','Ω','Σ','ϔ','Ͼ','⑤','҈','ӂ','փ','ﬄ','✄','↝','❉','❮','δ','ℬ','☯','Ѩ','\n']
 code2=["ͳ", "Ϡ", "Џ", "Ֆ", "ῡ", "ꝩ", "☭", "Ꜽ", "ӡ", "ҩ", "֍", "⅞", "ﻋ", "🔫", "¶", "Ǥ","ǂ","ʨ","ʬ","Ξ","՝","ԏ","ӹ","Ֆ","Ἔ","█","ﻺ","ﷻ","╫","շ","Ѡ","ᴥ","₽","€","﴾","⁴","―","∑","₿","‽","₰","Ꝁ","Ꝙ","∞","¼","Ɠ","«","E","¦","⚓","₽","צ","⭿","۞","ᶑ","ἶ","ⱷ","▒","♯","⤘","⛇","ሎ","≥","Ꞟ",'۩','Ä','ъ','ȸ','Ƿ','🄼','ÿ','✉','ǥ','Ỡ','ℳ','Ѿ','Ŵ','Ѭ','\n']
+code3=['1','¦','Ā','⁂','ꭗ','ꞥ','©','ﬓ','Ꭓ','±','ѯ','Ҋ','車','ѧ','۞','⁅','†','Þ','❦','Ջ','ਚ','ੴ','௵','Ⴥ','჻','元','ᚘ','Ჵ','᳁','Ὼ','ᾢ','ᶚ','‱','➓','✪','⌓','Ѹ','Ԭ','ᵺ','ᶈ','Ы','ᶕ','ḅ','⚓','ᾫ','⛟','☼','⸿','ﬃ','⅀','Ⅎ','ᵮ','ᵥ','♻','ᇔ','໓','ಣ','ℛ','Ⅻ','⅖','ⅅ','ↈ','∰','⊗','⌛','⌧','␕','◉','☔','⛆','ᵯ','ὼ','Ἶ','ѡ','ҁ','ϰ','ã','B','\n']
 file  = open('language.txt', 'r')
 language = file.read(1)
 def choice_1():
@@ -30,7 +31,7 @@ def reverse_choice():
     global choice
     choice = "reverse"
     b2['state'] = 'disabled'
-def encrypting():
+def crypt_action():
     global e1, original, code,code2, encrypt_for_copy, crypt, language, choice, kitten_made_encrypt, kitten_list,kitten_made_decrypt,reverse_list
     kitten_made_encrypt = ""
     if len(e1.get()) != 0:
@@ -45,6 +46,12 @@ def encrypting():
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code2[index]
                 kitten_made_encrypt = "ġ" + kitten_made_encrypt
+            if choice == 3:
+                for kitten_is_making_encrypt in e1.get():
+                    index = original.index(kitten_is_making_encrypt)
+                    kitten_made_encrypt = kitten_made_encrypt + code3[index]
+                kitten_made_encrypt = kitten_made_encrypt + "܀"
+
             if choice == "caesar":
                 kitten_made_encrypt = kitten_made_encrypt + "ϔ"
                 for kitten_is_making_encrypt in e1.get():   
@@ -107,6 +114,7 @@ def encrypting():
                 kitten_made_decrypt = ""
                 for step in range(len(reverse_list)):
                     kitten_made_decrypt = kitten_made_decrypt + reverse_list[step]    
+            #add third cyper
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
 def rus():
@@ -154,7 +162,7 @@ def eng():
         b1.config(text="decrypt")
         l2.config(text="Decrypted text")
     b2.config(text="code table")
-    rb1.config(text="encrypting")
+    rb1.config(text="crypt_action")
     rb2.config(text="decrypting")
     b3.config(text="copy to clipboard")
     mainmenu.entryconfigure(1, label='File')
@@ -238,6 +246,15 @@ def show_all():
         elif language == 1:
             textInput = textInput + "апостроф = Ŵ" + "\n"
             textInput = textInput + "пробел = Ѭ" + "\n"
+    elif choice == 3:
+        for step in range(0,len(code3)-3):
+            textInput = textInput + original[step] + " = " + code3[step] + "\n"
+        if language == 0:
+            textInput = textInput + "apostrophe = ã" + "\n"
+            textInput = textInput + "space = B" + "\n"
+        elif language == 1:
+            textInput = textInput + "апостроф = ã" + "\n"
+            textInput = textInput + "пробел = B" + "\n"
     elif choice == "caesar":
         for step in range(0,len(code2)-4):
             if step != 58 and step != 32:
@@ -289,7 +306,7 @@ l1 = Label(text="Write a text")
 l1.config(font=("Verdana", 15, 'bold'))
 e1 = Entry(width=22)
 e1.config(font=("Calibri", 13))
-b1 = Button(text="encrypt", padx = 60,command = encrypting)
+b1 = Button(text="encrypt", padx = 60,command = crypt_action)
 b2 = Button(text="code table", padx = 48,command = show_all)
 b1.config(font=("Verdana", 12, 'bold'))
 b2.config(font=("Verdana", 12, 'bold'))
@@ -297,7 +314,7 @@ l2 = Label(text="Encrypted text")
 l2.config(font=("Verdana", 15, 'bold'))
 l3 = Label(text = "",width=22, bg = "white")
 l3.config(font=("Calibri", 13))
-rb1 = Radiobutton(text="encrypting", variable=var, value=0, command = enn)
+rb1 = Radiobutton(text="crypt_action", variable=var, value=0, command = enn)
 rb2 = Radiobutton(text="decrypting", variable=var, value=1, command = dee)
 b3 = Button(text="copy to clipboard", padx = 75,command = copy)
 b3.config(font=("Verdana", 12, 'bold'))
@@ -319,4 +336,3 @@ elif language == "1":
     rus()
 root.mainloop()
 file.close()
-#поменять encrypting() на crypt_action() 
