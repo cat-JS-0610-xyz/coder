@@ -5,6 +5,7 @@ choice = 1
 kitten_made_encrypt = ""
 kitten_made_decrypt = ""
 reverse_list = []
+listt = []
 original = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",'1','2','3','4','5','6','7','8','9','0','!','?','"',',','.','(',')',"'",' ','\n']
 code =     ["×","Ø","Þ","Ԡ","Ӝ","Հ","Ԕ","Ԫ","ݚ","¶","ݿ","ᴂ","⁜","₮","₡","₯","₱","₪","₻","₧","‰","₷","₫","₰","ℳ","►","ꝑ","Ꝣ","ꝟ","ꭗ","ﮰ","₨","₳", "§", '¿', 'å','ɷ', 'ʥ','ʭ','ʧ','Ѯ', 'Ә', 'Ԭ','֍','♪','אַ','ﷺ','ﻼ','⑫','Ꝋ','Ꜯ','Ꞧ','☏','Ꝿ','ꭚ','ꭐ','ꝃ','ꞗ','Ꝇ','˧','ͳ','Ω','Σ','ϔ','Ͼ','⑤','҈','ӂ','փ','ﬄ','✄','↝','❉','❮','δ','ℬ','☯','Ѩ','\n']
 code2=["ͳ", "Ϡ", "Џ", "Ֆ", "ῡ", "ꝩ", "☭", "Ꜽ", "ӡ", "ҩ", "֍", "⅞", "ﻋ", "🔫", "¶", "Ǥ","ǂ","ʨ","ʬ","Ξ","՝","ԏ","ӹ","Ֆ","Ἔ","█","ﻺ","ﷻ","╫","շ","Ѡ","ᴥ","₽","€","﴾","⁴","―","∑","₿","‽","₰","Ꝁ","Ꝙ","∞","¼","Ɠ","«","E","¦","⚓","₽","צ","⭿","۞","ᶑ","ἶ","ⱷ","▒","♯","⤘","⛇","ሎ","≥","Ꞟ",'۩','Ä','ъ','ȸ','Ƿ','🄼','ÿ','✉','ǥ','Ỡ','ℳ','Ѿ','Ŵ','Ѭ','\n']
@@ -78,7 +79,7 @@ def crypt_action():
                     kitten_made_encrypt = kitten_made_encrypt + reverse_list[step]
             l3.configure(text = kitten_made_encrypt)
             encrypt_for_copy = kitten_made_encrypt
-        #1:Ā 2:ġ Caesar:ϔ reverse:ɚ
+        #1:Ā 2: 3:܀ ġ Caesar:ϔ reverse:ɚ
         elif crypt == 2:
             kitten_made_decrypt = ""
             kitten_made_encrypt = e1.get()
@@ -113,7 +114,12 @@ def crypt_action():
                 reverse_list.reverse()
                 kitten_made_decrypt = ""
                 for step in range(len(reverse_list)):
-                    kitten_made_decrypt = kitten_made_decrypt + reverse_list[step]    
+                    kitten_made_decrypt = kitten_made_decrypt + reverse_list[step]
+                    
+            elif kitten_made_encrypt[len(kitten_made_encrypt)-1] == "܀":
+                for kitten_is_making_encrypt in kitten_made_encrypt[0:len(kitten_made_encrypt)-1]:
+                    index = code3.index(kitten_is_making_encrypt)
+                    kitten_made_decrypt = kitten_made_decrypt + original[index]
             #add third cyper
             l3.configure(text = kitten_made_decrypt)
             encrypt_for_copy = kitten_made_decrypt
