@@ -4,6 +4,7 @@ crypt = 1
 choice = 1 
 kitten_made_encrypt = ""
 kitten_made_decrypt = ""
+e1_but_lower = ""
 reverse_list = []
 listt = []
 original = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",'1','2','3','4','5','6','7','8','9','0','!','?','"',',','.','(',')',"'",' ','\n']
@@ -33,12 +34,14 @@ def reverse_choice():
     choice = "reverse"
     b2['state'] = 'disabled'
 def crypt_action():
-    global e1, original, code,code2, encrypt_for_copy, crypt, language, choice, kitten_made_encrypt, kitten_list,kitten_made_decrypt,reverse_list
+    global e1, original, code,code2, encrypt_for_copy, crypt, language, choice, kitten_made_encrypt, kitten_list,kitten_made_decrypt,reverse_list, e1_but_lower
     kitten_made_encrypt = ""
     if len(e1.get()) != 0:
         if crypt == 1:
             if choice == 1:
-                for kitten_is_making_encrypt in e1.get()    :
+                e1_but_lower = e1.get()
+                e1_but_lower = e1_but_lower.lower()
+                for kitten_is_making_encrypt in e1_but_lower    :
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code[index]
                 kitten_made_encrypt = "Ā" + kitten_made_encrypt
