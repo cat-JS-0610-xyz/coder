@@ -7,24 +7,25 @@ kitten_made_decrypt = ""
 e1_but_lower = ""
 reverse_list = []
 listt = []
-original = []
-code = []
-code2= []
-code3= []
+flanguage = open('origanal_letters.txt', 'r', encoding="utf-8")
+original = flanguage.read()
+original = original.split()
+original[original.index('space')] = ' '
+flanguage.close()
+flanguage = open('code_1.txt', 'r', encoding="utf-8")
+code = flanguage.read()
+code = code.split()
+flanguage.close()
+flanguage = open('code_2.txt', 'r', encoding="utf-8")
+code2 = flanguage.read()
+code2 = code2.split()
+flanguage.close()
+flanguage = open('code_3.txt', 'r', encoding="utf-8")
+code3 = flanguage.read()
+code3 = code3.split()
+flanguage.close()
 file  = open('language.txt', 'r')
-original_text = open('original.txt', 'r')
-code_text = open('code_1.txt', 'r')
-code2_text = open('code_2.txt', 'r')
-code3_text = open('code_3.txt', 'r')
 language = file.read(1)
-original = original_text.read()
-code = code_text.read()
-code2 = code2_text.read()
-#code3 = code3_text.read()
-original.append("\n")
-code.append("\n")
-code2.append("\n")
-#code3.append("\n")
 def choice_1():
     global choice
     choice = 1
@@ -50,20 +51,20 @@ def crypt_action():
     kitten_made_encrypt = ""
     if len(e1.get()) != 0:
         if crypt == 1:
+            e1_but_lower = e1.get()
+            e1_but_lower = e1_but_lower.lower()
             if choice == 1:
-                e1_but_lower = e1.get()
-                e1_but_lower = e1_but_lower.lower()
                 for kitten_is_making_encrypt in e1_but_lower    :
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code[index]
                 kitten_made_encrypt = "Ā" + kitten_made_encrypt
             if choice == 2:
-                for kitten_is_making_encrypt in e1.get():
+                for kitten_is_making_encrypt in e1_but_lower:
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code2[index]
                 kitten_made_encrypt = "ġ" + kitten_made_encrypt
             if choice == 3:
-                for kitten_is_making_encrypt in e1.get():
+                for kitten_is_making_encrypt in e1_but_lower:
                     index = original.index(kitten_is_making_encrypt)
                     kitten_made_encrypt = kitten_made_encrypt + code3[index]
                 kitten_made_encrypt = kitten_made_encrypt + "܀"
@@ -248,7 +249,7 @@ def show_all():
     text.place(x=14, y=0)
     textInput = ""
     text.delete(1.0,"end")
-    table.resizable(False, False)
+    table.resizable(True, True)
     if choice == 1:
         for step in range(0,len(original)-3):
             textInput = textInput + original[step] + " = " + code[step] + "\n"
@@ -356,4 +357,4 @@ if language == "0":
 elif language == "1":
     rus()
 root.mainloop()
-file.close()
+file.close
